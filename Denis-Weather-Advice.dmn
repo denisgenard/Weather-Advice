@@ -30,7 +30,7 @@
     </dmn:informationRequirement>
     <dmn:literalExpression id="_E0BD75E6-9265-412B-94A6-AFDB541B7100">
       <dmn:text>if Name = "" then "Sorry, we don't have enough information to provide a response."
-else "Hello "+Name+"! "+Weather-Advice</dmn:text>
+else "Hello "+Name+"! (updated by webhooks) "+Weather-Advice</dmn:text>
     </dmn:literalExpression>
   </dmn:decision>
   <dmn:inputData id="_50821130-F85E-44C3-867A-48E89DD40ADA" name="Weather">
