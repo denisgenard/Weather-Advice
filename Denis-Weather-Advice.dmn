@@ -8,6 +8,12 @@
     </dmn:allowedValues>
   </dmn:itemDefinition>
   <dmn:itemDefinition id="_2B824766-AAA6-4ADA-ADF9-0412A1E422ED" name="weather" isCollection="false">
+    <dmn:itemComponent id="_DCE2B9ED-AFDE-474A-B301-2CD6DF02CDB9" name="location" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_3F560C6B-D18D-42FB-97D8-DDCB2085C12E" name="stormAlert" isCollection="false">
+      <dmn:typeRef>boolean</dmn:typeRef>
+    </dmn:itemComponent>
     <dmn:itemComponent id="_3EEA7C6C-B93C-4537-B76C-3FEDDF17E3E6" name="temperature" isCollection="false">
       <dmn:typeRef>temperature</dmn:typeRef>
     </dmn:itemComponent>
@@ -43,7 +49,7 @@ else "Hello "+Name+"! (updated by webhooks) "+Weather-Advice</dmn:text>
     <dmn:informationRequirement id="_F1ECAFF9-A232-4A79-B628-007F924E095A">
       <dmn:requiredInput href="#_50821130-F85E-44C3-867A-48E89DD40ADA"/>
     </dmn:informationRequirement>
-    <dmn:decisionTable id="_915B9AE5-726B-4B8D-805C-03FFCE61D741" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+    <dmn:decisionTable id="_915B9AE5-726B-4B8D-805C-03FFCE61D741" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
       <dmn:input id="_E2BE16BC-C977-4E9D-B57D-58346A27B2CE">
         <dmn:inputExpression id="_E1568CD1-4D76-4A87-AC6D-58965BF40926" typeRef="number">
           <dmn:text>Weather.rainForecast</dmn:text>
@@ -54,14 +60,39 @@ else "Hello "+Name+"! (updated by webhooks) "+Weather-Advice</dmn:text>
           <dmn:text>Weather.temperature</dmn:text>
         </dmn:inputExpression>
       </dmn:input>
+      <dmn:input id="_7355DA65-81BE-4586-9AA3-C97AF3A35487">
+        <dmn:inputExpression id="_C405FA1D-B9F7-4429-A177-30E29455BC27" typeRef="boolean">
+          <dmn:text>Weather.stormAlert</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
       <dmn:output id="_3AAF408B-FF23-45D5-83D7-92AEF22AF279"/>
       <dmn:annotation name="annotation-1"/>
+      <dmn:rule id="_9F5F9909-5A05-482A-A6BE-69E131F624D1">
+        <dmn:inputEntry id="_4E9AE9B5-F94B-47E4-822A-CCA089553CBA">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_2FA94F63-E3C0-4EA7-8D6D-C8135E229F14">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_12EA8A10-350A-487A-870D-BA7B9DA51E75">
+          <dmn:text>true</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_4ECE7699-08DA-4FDB-8410-0295B26F48B3">
+          <dmn:text>"Stay home! There is a storm alert."</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
       <dmn:rule id="_CE3E8259-2F42-4BF7-A970-3B3B9C2D3CF3">
         <dmn:inputEntry id="_FD17EE18-3B1B-49F6-9448-963BEF7F50BD">
           <dmn:text>[0..20)</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="_FBAD4CD1-DC23-4969-ACD9-ED7275EF88C1">
           <dmn:text>"cold"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_75A50D84-E3D7-4167-B65D-1D43709E6C10">
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="_1500AD40-F2FB-4C89-8643-AFF11A2E95F1">
           <dmn:text>"Cold day. Take a coat."</dmn:text>
@@ -77,6 +108,9 @@ else "Hello "+Name+"! (updated by webhooks) "+Weather-Advice</dmn:text>
         <dmn:inputEntry id="_3A3098F3-6274-4866-AF60-F4B14581C253">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
+        <dmn:inputEntry id="_7A6B4758-E6E6-4F68-A98A-0030C93AC8C4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
         <dmn:outputEntry id="_E99BE8F2-ABF3-47CE-9B8D-59A134C8BDD4">
           <dmn:text>"Risk of rain. Might need an umbrella."</dmn:text>
         </dmn:outputEntry>
@@ -89,6 +123,9 @@ else "Hello "+Name+"! (updated by webhooks) "+Weather-Advice</dmn:text>
           <dmn:text>[80..100]</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="_E300C202-CBAC-4A74-A1FB-E682EB0B1C7A">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="_72E4F830-F88B-4616-83C4-A291EC65D593">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="_E19BEE19-524F-4FB2-8963-AB7156B518DF">
@@ -111,6 +148,7 @@ else "Hello "+Name+"! (updated by webhooks) "+Weather-Advice</dmn:text>
             <kie:width>50</kie:width>
             <kie:width>184</kie:width>
             <kie:width>236</kie:width>
+            <kie:width>100</kie:width>
             <kie:width>316</kie:width>
             <kie:width>315</kie:width>
           </kie:ComponentWidths>
